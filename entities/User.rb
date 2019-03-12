@@ -34,7 +34,7 @@ class User
 	def self.dues(username)
 		query = "SELECT outstanding from user where name = \"#{username}\";"
 		result = Entities.execute_command(query)
-		return result
+		return result[0][0]
 	end
 
 	def self.index_dues
@@ -52,6 +52,6 @@ class User
 	def self.defaulters
 		query = "SELECT name from user where outstanding=credit_limit;"
 		result = Entities.execute_command(query)
-		return result
+		return result[0]
 	end
 end
