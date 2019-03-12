@@ -1,8 +1,8 @@
-#Project Overview
+# Project Overview
 
 A Ruby based order now pay later service on command line
 
-##Requirements
+## Requirements
 
 A platform that allows users and merchants to transact together with the following funtionalities.
 
@@ -17,7 +17,7 @@ A platform that allows users and merchants to transact together with the followi
 	- which users have reached their credit limit
 	- total dues from all users together
 
-##Commands
+## Commands
 To create a new user - 
 `new user u1 u1@email.in 1000`
 
@@ -45,11 +45,11 @@ All users who are at credit-limit -
 All user's dues -
 `report total-dues`
 
-##Solution
+## Solution
 
 The project worked on ruby which work on Entities like User, Merchants & Transactions. Certain actions can be performed on each entities like creation, updation or reporting. All the data is stored in a local database.
 
-##Getting Started
+## Getting Started
 
 1. `ruby set-commands.rb` To set the commands into the /.bash_profile. 
 2. `source ~/.bash_profile` To load the updated bash_profile.
