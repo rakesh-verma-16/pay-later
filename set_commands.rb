@@ -1,4 +1,4 @@
-require_relative 'model/Entities'
+require_relative 'model/EntityHelper'
 
 path = %x(realpath ~/.bash_profile)
 
@@ -10,4 +10,4 @@ open(path.gsub("\n", ""), 'a') do |file|
 	file.puts "alias report='ruby /usr/bin/simpl/services/Report.rb'"
 end
 
-Entities.create_table	
+EntityHelper.create_table	

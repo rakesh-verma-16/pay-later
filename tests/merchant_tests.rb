@@ -1,8 +1,8 @@
 require 'test/unit'
 require 'sqlite3'
-require_relative '../entities/User'
-require_relative '../entities/Merchant'
-require_relative '../entities/Transactions'
+require_relative '../model/User'
+require_relative '../model/Merchant'
+require_relative '../model/Transactions'
 
 class MerchantTests < Test::Unit::TestCase
 
@@ -22,7 +22,7 @@ class MerchantTests < Test::Unit::TestCase
 		puts "--Running the merchant creation test--\n"
 		Merchant.create(@@merchant_details['name'], @@merchant_details['email'], @@merchant_details['discount'])
 		query = "select email, current_discount, total_discount from merchant where name=\"#{@@merchant_details['name']}\";"
-		result = Entities.execute_command(query)
+		result = EntityHelper.execute_command(query)
 		assert_equal(result[0][1], 1.5)
 		assert_equal(result[0][2], 1.5)
 		assert_equal(result[0][0], 'uber@example.com')
@@ -35,7 +35,7 @@ class MerchantTests < Test::Unit::TestCase
 		updated_discount = 3
 		Merchant.update_discount(@@merchant_details['name'], updated_discount)
 		query = "select current_discount from merchant where name=\"#{@@merchant_details['name']}\";"
-		result = Entities.execute_command(query)
+		result = EntityHelper.execute_command(query)
 		assert_equal(result[0][0], 3)
 
 	end
@@ -48,7 +48,7 @@ class MerchantTests < Test::Unit::TestCase
 		updated_discount = 3
 		Merchant.update_discount(@@merchant_details['name'], updated_discount)
 		query = "select total_discount from merchant where name=\"#{@@merchant_details['name']}\";"
-		result = Entities.execute_command(query)
+		result = EntityHelper.execute_command(query)
 		assert_equal(result[0][0], 4.5)
 	end
 

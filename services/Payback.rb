@@ -1,4 +1,4 @@
-require_relative '../entities/User'
+require_relative '../model/User'
 
 username = ARGV[0]
 amount = ARGV[1]

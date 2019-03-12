@@ -1,8 +1,8 @@
 require 'test/unit'
 require 'sqlite3'
-require_relative '../entities/User'
-require_relative '../entities/Merchant'
-require_relative '../entities/Transactions'
+require_relative '../model/User'
+require_relative '../model/Merchant'
+require_relative '../model/Transactions'
 
 class TransactionTests < Test::Unit::TestCase
 
@@ -32,7 +32,7 @@ class TransactionTests < Test::Unit::TestCase
 		transaction_created = Transactions.create(@@user_details['name'], @@merchant_details['name'], 200)
 		assert_equal("success!", transaction_created)
 		query = "select amount from Transactions where user=\"#{@@user_details['name']}\" and merchant=\"#{@@merchant_details['name']}\";"
-		result = Entities.execute_command(query)
+		result = EntityHelper.execute_command(query)
 		assert_equal(result[0][0], 200)
 	end
 

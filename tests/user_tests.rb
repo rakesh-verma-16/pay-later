@@ -1,8 +1,8 @@
 require 'test/unit'
 require 'sqlite3'
-require_relative '../entities/User'
-require_relative '../entities/Merchant'
-require_relative '../entities/Transactions'
+require_relative '../model/User'
+require_relative '../model/Merchant'
+require_relative '../model/Transactions'
 
 
 class UserTests < Test::Unit::TestCase
@@ -32,7 +32,7 @@ class UserTests < Test::Unit::TestCase
 	def test_new_user_creation
 		User.create(@@user_details['name'], @@user_details['email'], @@user_details['credit_limit'])
 		query = "select email, credit_limit from user where name=\"#{@@user_details['name']}\";"
-		result = Entities.execute_command(query)
+		result = EntityHelper.execute_command(query)
 		assert_equal(result[0][1], 400)
 		assert_equal(result[0][0], 'rakesh@example.com')
 	end
@@ -45,13 +45,13 @@ class UserTests < Test::Unit::TestCase
 	def test_user_update_credit_limit
 		User.create(@@user_details['name'], @@user_details['email'], @@user_details['credit_limit'])
 		query = "select credit_limit from user where name=\"#{@@user_details['name']}\";"
-		result = Entities.execute_command(query)
+		result = EntityHelper.execute_command(query)
 		assert_equal(result[0][0], 400)
 		
 		new_credit_limit = 500
 		User.update_credit(@@user_details['name'], new_credit_limit)
 		query = "select credit_limit from user where name=\"#{@@user_details['name']}\";"
-		result = Entities.execute_command(query)
+		result = EntityHelper.execute_command(query)
 		assert_equal(result[0][0], 500)
 	end
 
@@ -64,12 +64,12 @@ class UserTests < Test::Unit::TestCase
 		create_user_with_pending_dues(200, @@user_details)
 
 		query = "select outstanding from user where name=\"#{@@user_details['name']}\";"
-		result = Entities.execute_command(query)
+		result = EntityHelper.execute_command(query)
 		assert_equal(result[0][0], 200)
 
 		User.payback(@@user_details['name'], 150)
 		query = "select outstanding from user where name=\"#{@@user_details['name']}\";"
-		result = Entities.execute_command(query)
+		result = EntityHelper.execute_command(query)
 		assert_equal(result[0][0], 50)
 	end
 
@@ -111,6 +111,6 @@ class UserTests < Test::Unit::TestCase
 	def create_user_with_pending_dues(outstanding_amount = 200, user_details = @@user_details)
 		User.create(user_details['name'], user_details['email'], user_details['credit_limit'])
 		query = "UPDATE user SET outstanding = #{outstanding_amount} where name = \"#{user_details['name']}\";"
-		Entities.execute_command(query)
+		EntityHelper.execute_command(query)
 	end
 end

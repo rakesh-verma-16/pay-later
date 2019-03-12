@@ -1,6 +1,6 @@
-require_relative '../entities/User'
-require_relative '../entities/Merchant'
-require_relative '../entities/Transactions'
+require_relative '../model/User'
+require_relative '../model/Merchant'
+require_relative '../model/Transactions'
 
 
 command = ARGV[0]

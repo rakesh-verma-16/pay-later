@@ -1,5 +1,5 @@
-require_relative '../entities/User'
-require_relative '../entities/Merchant'
+require_relative '../model/User'
+require_relative '../model/Merchant'
 
 if ARGV[0] == 'user'
 	puts User.update_credit(ARGV[1], ARGV[2])
