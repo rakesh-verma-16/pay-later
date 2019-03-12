@@ -2,8 +2,9 @@
 require 'sqlite3'
 
 class Entities
-	def self.create_table
-		db = SQLite3::Database.new 'simpl.db'
+	def self.create_table(dbname = "simpl.db")
+    
+		db = SQLite3::Database.new dbname
 
 		db.execute "DROP TABLE IF EXISTS user"
 		db.execute "DROP TABLE IF EXISTS merchant"
@@ -12,18 +13,19 @@ class Entities
   			CREATE TABLE user (
   				id INTEGER PRIMARY KEY AUTOINCREMENT,
   				name TEXT NOT NULL,
-  				email TEXT NOT NULL,
+  				email TEXT NOT NULL UNIQUE,
   				credit_limit INT NOT NULL,
-  				outstanding INT DEFAULT 0
+  				outstanding REAL DEFAULT 0
   			);
     SQL
 
     db.execute <<-SQL
   			CREATE TABLE merchant (
   				id INTEGER PRIMARY KEY AUTOINCREMENT,
-  				name TEXT NOT NULL,
-  				current_discount INT NOT NULL,
-  				total_discount INT DEFAULT 0
+  				name TEXT NOT NULL UNIQUE ,
+          email TEXT UNI,
+  				current_discount REAL NOT NULL,
+  				total_discount REAL DEFAULT 0
   			);
     SQL
     
@@ -32,13 +34,13 @@ class Entities
   				id INTEGER PRIMARY KEY AUTOINCREMENT,
   				user INT NOT NULL,
   				merchant TEXT NOT NULL,
-  				amount INT NOT NULL
+  				amount REAL NOT NULL
   			);  		
 		SQL
 	end
 
   def self.execute_command(query)
-    db = SQLite3::Database.open 'simpl.db'
+    db = SQLite3::Database.open "simpl.db"
     db.execute query
   end
 end

@@ -1,5 +1,5 @@
-require_relative 'Classes/User'
-require_relative 'Classes/Merchant'
+require_relative '../entities/User'
+require_relative '../entities/Merchant'
 
 result = case ARGV[0]
 when 'discount'

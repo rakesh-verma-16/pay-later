@@ -2,8 +2,8 @@ require 'sqlite3'
 require_relative '../model/Entities'
 
 class Merchant
-	def self.create(merchant_name, discount)
-		sql_string = "insert into merchant values (null,\"#{merchant_name}\",#{discount},#{discount});"
+	def self.create(merchant_name, email, discount)
+		sql_string = "insert into merchant values (null,\"#{merchant_name}\",\"#{email}\",#{discount},#{discount});"
 		Entities.execute_command(sql_string)
 		return "#{merchant_name}(#{discount})"
 	end

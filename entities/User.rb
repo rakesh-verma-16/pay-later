@@ -2,22 +2,20 @@ require 'sqlite3'
 require_relative '../model/Entities'
 
 class User
-	def self.create(user_name, email, credit_limit)
-		query = "insert into user values (null,\"#{user_name}\",\"#{email}\",#{credit_limit},0);"
+	def self.create(username, email, credit_limit)
+		query = "insert into user values (null,\"#{username}\",\"#{email}\",#{credit_limit},0);"
 		Entities.execute_command(query)
 
-		return "#{user_name}(#{credit_limit})"
+		return "#{username}(#{credit_limit})"
 	end
 
 
 	def self.update_credit(username, credit_limit)
-		user_name = ARGV[1]
-		credit_limit = ARGV[2]
 
-		query = "UPDATE user SET credit_limit = #{credit_limit} where name = \"#{user_name}\";"
+		query = "UPDATE user SET credit_limit=#{credit_limit} where name=\"#{username}\";"
 		Entities.execute_command(query)
 
-		return "#{user_name}(#{credit_limit})"
+		return "#{username}(#{credit_limit})"
 	end
 
 	def self.payback(username, amount)
@@ -30,7 +28,7 @@ class User
 		pending_dues_query = "SELECT outstanding FROM user where name = \"#{username}\";"
 		pending_dues = Entities.execute_command(pending_dues_query)
 		
-		puts "#{username}(dues: #{pending_dues[0][0]})"
+		return "#{username}(dues: #{pending_dues[0][0]})"
 	end
 
 	def self.dues(username)
